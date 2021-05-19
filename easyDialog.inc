@@ -39,8 +39,8 @@ static
 forward OnDialogPerformed(playerid, const dialog[], response, success);
 
 forward @dialog_format(); @dialog_format() {
-	new emptyString[2] = '\1';
-	format(emptyString, 2, emptyString);
+	new emptyString[] = '\1';
+	format(emptyString, sizeof(emptyString), emptyString);
 }
 
 forward Dialog_IsOpened(playerid);
