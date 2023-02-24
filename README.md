@@ -83,3 +83,4 @@ public OnDialogPerformed(playerid, dialog[], response, success)
 Emmet_ - for easyDialog
 Southclaws - for sampctl
 AliLogic - for const correction
+MichelDev - for fix (open.mp rc2)
