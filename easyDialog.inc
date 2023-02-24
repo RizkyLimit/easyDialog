@@ -8,8 +8,8 @@
 	and a lot more.
 
 	Created by Emmet on Friday, January 24, 2014.
-
 	Updated by Southclaws 2017-10-13 to add include guard.
+	Updated by MichelDev 2023-02-24 new style and fix error HidePlayerDialog (open-mp RC2)
 */
 
 #if defined _easyDialog_included
@@ -52,7 +52,7 @@ stock Dialog_Close(playerid) {
 	s_DialogName[playerid]{0} = 0;
 	s_DialogOpened[playerid] = false;
 
-	return ShowPlayerDialog(playerid, -1, DIALOG_STYLE_MSGBOX, " ", " ", " ", "");
+	return HidePlayerDialog(playerid);
 }
 
 stock Dialog_Open(playerid, const function[], style, const caption[], const info[], const button1[], const button2[], {Float,_}:...) {
