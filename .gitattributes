@@ -1,2 +1,2 @@
-*.pwn linguist-language=Pawn
-*.inc linguist-language=Pawn
+*.pwn linguist-language=Pawn core.autocrlf=false
+*.inc linguist-language=Pawn core.autocrlf=false
