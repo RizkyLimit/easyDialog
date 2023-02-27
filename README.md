@@ -1,6 +1,6 @@
 # easyDialog
 
-### Note: You must use https://github.com/sampctl/samp-stdlib otherwise, you'll get more warnings!!
+### Note: You must use https://github.com/openmultiplayer/omp-stdlib otherwise, you'll get more warnings!!
 
 The purpose of this include is to make dialogs easier to use in general.
 
@@ -40,8 +40,7 @@ Dialog_Opened(playerid);
 This callback is called before a dialog is shown to a player (using Dialog_Show, that is). Returning 0 under this callback will prevent the dialog from working.
 
 ```pawn
-public OnDialogPerformed(playerid, dialog[], response, success)
-{
+public OnDialogPerformed(playerid, dialog[], response, success) {
     return 1;
 }
 ```
@@ -49,16 +48,13 @@ public OnDialogPerformed(playerid, dialog[], response, success)
 ## Example
 
 ```pawn
-CMD:weapons(playerid, params[])
-{
+CMD:weapons(playerid, params[]) {
     Dialog_Show(playerid, WeaponMenu, DIALOG_STYLE_LIST, "Weapon Menu", "9mm\nSilenced 9mm\nDesert Eagle\nShotgun\nSawn-off Shotgun\nCombat Shotgun", "Select", "Cancel");
     return 1;
 }
 
-Dialog:WeaponMenu(playerid, response, listitem, inputtext[])
-{
-    if (response)
-    {
+Dialog:WeaponMenu(playerid, response, listitem, inputtext[]) {
+    if (response) {
         new str[64];
         format(str, 64, "You have selected the '%s'.", inputtext);
 
@@ -68,10 +64,8 @@ Dialog:WeaponMenu(playerid, response, listitem, inputtext[])
     return 1;
 }
 
-public OnDialogPerformed(playerid, dialog[], response, success)
-{
-    if (!strcmp(dialog, "WeaponMenu") && IsPlayerInAnyVehicle(playerid))
-    {
+public OnDialogPerformed(playerid, dialog[], response, success) {
+    if (!strcmp(dialog, "WeaponMenu") && IsPlayerInAnyVehicle(playerid)) {
         SendClientMessage(playerid, -1, "You must be on-foot to spawn a weapon.");
         return 0;
     }
