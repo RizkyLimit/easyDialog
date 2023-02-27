@@ -8,8 +8,8 @@
 	and a lot more.
 
 	Created by Emmet on Friday, January 24, 2014.
-
 	Updated by Southclaws 2017-10-13 to add include guard.
+	Updated by MichelDev 2023-02-24 new style and fix error HidePlayerDialog (open-mp RC2)
 */
 
 #if defined _easyDialog_included
@@ -44,34 +44,28 @@ forward @dialog_format(); @dialog_format() {
 }
 
 forward Dialog_IsOpened(playerid);
-public Dialog_IsOpened(playerid)
-{
+public Dialog_IsOpened(playerid) {
 	return (s_DialogOpened[playerid]);
 }
 
-stock Dialog_Close(playerid)
-{
+stock Dialog_Close(playerid) {
 	s_DialogName[playerid]{0} = 0;
 	s_DialogOpened[playerid] = false;
 
-	return ShowPlayerDialog(playerid, -1, DIALOG_STYLE_MSGBOX, " ", " ", " ", "");
+	return HidePlayerDialog(playerid);
 }
 
-stock Dialog_Open(playerid, const function[], style, const caption[], const info[], const button1[], const button2[], {Float,_}:...)
-{
+stock Dialog_Open(playerid, const function[], style, const caption[], const info[], const button1[], const button2[], {Float,_}:...) {
 	static
 		string[4096],
 		args
 	;
 
-	if (!strlen(info))
-	{
+	if (!strlen(info)) {
 		return 0;
 	}
-	if ((args = numargs()) > 7)
-	{
-		while (--args >= 7)
-		{
+	if ((args = numargs()) > 7) {
+		while (--args >= 7) {
 			#emit LCTRL 5
 			#emit LOAD.alt args
 			#emit SHL.C.alt 2
@@ -95,8 +89,7 @@ stock Dialog_Open(playerid, const function[], style, const caption[], const info
 
 		ShowPlayerDialog(playerid, 32700, style, caption, string, button1, button2);
 	}
-	else
-	{
+	else {
 		ShowPlayerDialog(playerid, 32700, style, caption, info, button1, button2);
 	}
 	s_DialogOpened[playerid] = true;
@@ -106,27 +99,22 @@ stock Dialog_Open(playerid, const function[], style, const caption[], const info
 	return 1;
 }
 
-public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
-{
+public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 	static
 		s_Public = cellmax;
 
-	if (s_Public == cellmax)
-	{
+	if (s_Public == cellmax) {
 		s_Public = funcidx("OnDialogPerformed");
 	}
 
 	// Sanitize inputs.
-	for (new i = 0, l = strlen(inputtext); i < l; i ++)
-	{
-		if (inputtext[i] == '%')
-		{
+	for (new i = 0, l = strlen(inputtext); i < l; i ++) {
+		if (inputtext[i] == '%') {
 			inputtext[i] = '#';
 		}
 	}
 	
-	if (dialogid == 32700 && strlen(s_DialogName[playerid]) > 0)
-	{
+	if (dialogid == 32700 && strlen(s_DialogName[playerid]) > 0) {
 		new
 			string[40];
 
@@ -135,8 +123,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 		Dialog_Close(playerid);
 
-		if ((s_Public == -1) || (CallLocalFunction("OnDialogPerformed", "dsdd", playerid, string[7], response, funcidx(string) != -1)))
-		{
+		if ((s_Public == -1) || (CallLocalFunction("OnDialogPerformed", "dsdd", playerid, string[7], response, funcidx(string) != -1))) {
 	 		CallLocalFunction(string, "ddds", playerid, response, listitem, (!inputtext[0]) ? ("\1") : (inputtext));
 		}
 	}
