@@ -22,6 +22,11 @@
 		((!(%1[0])) || (((%1[0]) == '\1') && (!(%1[1]))))
 #endif
 
+#if !defined HidePlayerDialog
+	#define HidePlayerDialog(%1) \
+		ShowPlayerDialog(%1, -1, 0, " ", " ", " ", " ")
+#endif
+
 #define Dialog:%0(%1) \
 	forward dialog_%0(%1); public dialog_%0(%1)
 
