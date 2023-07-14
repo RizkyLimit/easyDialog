@@ -57,10 +57,18 @@ stock Dialog_Close(playerid) {
 	s_DialogName[playerid]{0} = 0;
 	s_DialogOpened[playerid] = false;
 
-	return HidePlayerDialog(playerid);
+	#if !defined easyDialog_Mobile
+		return HidePlayerDialog(playerid);
+	#else
+		return 1;
+	#endif
 }
 
-stock Dialog_Open(playerid, const function[], style, const caption[], const info[], const button1[], const button2[], {Float,_}:...) {
+#if defined easyDialog_NonUpdate
+	stock Dialog_Open(playerid, function[], style, caption[], info[], button1[], button2[], {Float,_}:...) {
+#else
+	stock Dialog_Open(playerid, const function[], style, const caption[], const info[], const button1[], const button2[], {Float,_}:...) {
+#endif
 	static
 		string[4096],
 		args
@@ -126,7 +134,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		strcat(string, "dialog_");
 		strcat(string, s_DialogName[playerid]);
 
-		Dialog_Close(playerid);
+		#if !defined easyDialog_Mobile
+			Dialog_Close(playerid);
+		#endif
 
 		if ((s_Public == -1) || (CallLocalFunction("OnDialogPerformed", "dsdd", playerid, string[7], response, funcidx(string) != -1))) {
 	 		CallLocalFunction(string, "ddds", playerid, response, listitem, (!inputtext[0]) ? ("\1") : (inputtext));
