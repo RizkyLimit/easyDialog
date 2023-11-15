@@ -40,7 +40,7 @@ Dialog_Opened(playerid);
 This callback is called before a dialog is shown to a player (using Dialog_Show, that is). Returning 0 under this callback will prevent the dialog from working.
 
 ```pawn
-public OnDialogPerformed(playerid, dialog[], response, success) {
+public OnDialogPerformed(playerid, const dialog[], response, success) {
     return 1;
 }
 ```
@@ -64,7 +64,7 @@ Dialog:WeaponMenu(playerid, response, listitem, inputtext[]) {
     return 1;
 }
 
-public OnDialogPerformed(playerid, dialog[], response, success) {
+public OnDialogPerformed(playerid, const dialog[], response, success) {
     if (!strcmp(dialog, "WeaponMenu") && IsPlayerInAnyVehicle(playerid)) {
         SendClientMessage(playerid, -1, "You must be on-foot to spawn a weapon.");
         return 0;
