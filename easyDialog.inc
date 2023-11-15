@@ -10,6 +10,7 @@
 	Created by Emmet on Friday, January 24, 2014.
 	Updated by Southclaws 2017-10-13 to add include guard.
 	Updated by MichelDev 2023-02-24 new style and fix error HidePlayerDialog (open-mp RC2)
+	Updated by adib-yg 2023-11-15 to add the DIALOG_STYLE tag.
 */
 
 #if defined _easyDialog_included
@@ -36,6 +37,12 @@
 #define Dialog_Opened(%0) \
 	(CallRemoteFunction("Dialog_IsOpened", "i", (%0)))
 
+#if !defined _INC_open_mp
+	#if !defined DIALOG_STYLE
+		#define DIALOG_STYLE: _:
+	#endif
+#endif
+
 static
 	s_DialogName[MAX_PLAYERS][32 char],
 	bool: s_DialogOpened[MAX_PLAYERS]
@@ -60,7 +67,7 @@ stock Dialog_Close(playerid) {
 	return HidePlayerDialog(playerid);
 }
 
-stock Dialog_Open(playerid, const function[], style, const caption[], const info[], const button1[], const button2[], {Float,_}:...) {
+stock Dialog_Open(playerid, const function[], DIALOG_STYLE:style, const caption[], const info[], const button1[], const button2[], {Float,_}:...) {
 	static
 		string[4096],
 		args
