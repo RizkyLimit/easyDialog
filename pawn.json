@@ -4,6 +4,6 @@
 	"entry": "test.pwn",
 	"output": "test.amx",
 	"dependencies": [
-		"openmultiplayer/omp-stdlib"
+		"sampctl/samp-stdlib"
 	]
 }
